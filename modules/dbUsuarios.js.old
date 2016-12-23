@@ -1,0 +1,143 @@
+var mysql = require('mysql');
+var connection = mysql.createConnection( {
+    host     : 'localhost',
+    user     : 'dev',
+    password : '1234',
+    database : 'mvl'
+});
+
+module.exports.getUsuarios = function(callback) {
+    /**
+     *Trae todos los usuarios
+    */
+    var query = 'SELECT * FROM usuarios';
+    var results;
+    connection.connect(function(){
+        console.log("--Conexion abierta.");
+    });
+
+    connection.query(query, function(err, rows, fields) {
+        if (err) throw err;
+        results = rows;
+    });
+
+    connection.end(function(){
+        console.log("-/-Conexion cerrada.");
+        if(typeof callback == "function") 
+            callback(results);
+    });
+};
+
+function getUsuario(username, callback) {
+    /**
+     *Trae los datos de un usuario por el atributo username
+    */
+    var usuarioExistente= false;
+    var usuarioData;
+    var errr;
+    var query = 'SELECT * FROM usuarios WHERE username='+ connection.escape(username);
+    connection.connect(function(){
+        console.log("--Conexion abierta.");
+    });
+
+    connection.query(query, function(err, rows, fields) {
+        if (err){
+            errr = err;
+            throw err;
+        }else{
+            if(rows.length == 1){
+            usuarioExistente = true;
+            usuarioData = rows[0];
+            console.log("El usuario %s existe", username);
+            }else{
+                usuarioExistente = false;
+                console.log("El usuario %s no existe", username);
+            }
+        }        
+    });    
+    connection.end(function(){
+        console.log("-/-Conexion cerrada.");
+        if(typeof callback == "function") 
+            callback(errr, usuarioData, usuarioExistente);
+    });
+};
+
+module.exports.deleteUsuario = function(username, callback) {
+    /**
+     *Borra un usuario por el atributo username
+    */
+};
+
+module.exports.insertUsuario = function(usuarioObj, callback) {
+    /**
+     *Recibe como parametro un usuario y lo agrega a la base de datos Usuarios
+    */
+    //Verificar si el usuario existe ok
+    //Verificar sus datos ~
+    //Agregarlo a la tabla ok    
+    var usuario = {
+                nombre     : connection.escape(usuarioObj.nombre),
+                apellido   : connection.escape(usuarioObj.apellido),
+                username   : connection.escape(usuarioObj.username),
+                password   : connection.escape(usuarioObj.password),
+                admin      : usuarioObj.admin,
+                habilitado : usuarioObj.habilitado,
+                oficina    : connection.escape(usuarioObj.oficina)
+            };
+    getUsuario(usuario.username, function(err, user, exist){
+        if(!exist){              
+            connection.query('INSERT INTO usuarios SET ?', usuario, function(err,res){
+                if(err){
+                    throw err;
+                }else{
+                    console.log('Usuario agregado con exito, ID: %s', res.insertId);
+                }
+                if(typeof callback == "function")
+                    callback(err, res);
+            });
+        }else{
+            res = 'El usuario' + user.username + ' ya existe.';
+            console.log(res);
+            if(typeof callback == "function")
+                callback(err, res);
+        }
+    });
+    
+};
+
+module.exports.updateUsuario = function(usuarioObj, callback) {
+    /**
+     *Actualiza los datos de un usuario
+    */
+};
+
+module.exports.loginUsuario = function(username, password, callback) {
+    /**
+     *Comprueba si un usuario existe y devuelve un booleano
+    */
+    var usuarioValido = false;
+    var query = 'SELECT * FROM usuarios WHERE username='+ connection.escape(username) + ' and password=' + connection.escape(password);
+    connection.connect(function(){
+        console.log("--Conexion abierta.");
+    });
+
+    connection.query(query, function(err, rows, fields) {
+        if (err) throw err;
+        if(rows.length == 1){
+            usuarioValido = true;
+            console.log("Usuario existente: " + usuarioValido);
+            usuarioValido = true;
+        }else{
+            usuarioValido = false;
+            console.log("Usuario inexistente: " + usuarioValido);
+        }
+    });
+
+    connection.end(function(){
+        console.log("-/-Conexion cerrada.");
+        if(typeof callback == "function") 
+            callback(usuarioValido);
+    });
+};
+
+module.exports.getUsuario = getUsuario;

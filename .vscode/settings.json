@@ -1,0 +1,16 @@
+// Coloque su configuración en este archivo para sobrescribir la configuración predeterminada y de usuario.
+{
+        "editor.mouseWheelZoom": true,
+        "editor.fontSize": 16,
+        "editor.renderWhitespace": true,
+        "editor.renderIndentGuides": true,
+        
+        "window.zoomLevel": 1,
+        "files.autoSave": "afterDelay",
+        "files.autoSaveDelay": 10000,
+        "files.associations": {
+                "*.ejs" : "html"
+        },
+        //html
+        "html.format.indentInnerHtml": true
+}

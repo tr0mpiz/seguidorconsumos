@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head lang="es">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Consumos de <%= usuario %></title>
+        <link rel="stylesheet" href="/css/normalize.css">        
+        <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.css">
+        <link rel="stylesheet" href="/css/consumos.css">
+        <link rel="stylesheet" href="/css/common.css">
+        <link rel="stylesheet" href="..\jquery\datatables\media\css\dataTables.jqueryui.min.css">
+        <link rel="icon" href="/assets/favicon.png">
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <nav class="col-lg-offset-1 col-lg-10 navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">$<-Tracker</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li class=""><a href="/consumo/consumos">Inicio</a></li>                
+                        <li><a href="/consumo">Nuevo consumo</a></li>
+                        <li><a href="/consumo/estadisticas">Estadisticas</a></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Sesion <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/consumo/api/getConsumos">Descargar consumos</a></li>
+                                <li><a href="#">Configuracion</a></li>
+                                <li><a href="/logout">Salir</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!--
+                    <ul class="nav navbar-nav navbar-right">
+                      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    </ul>
+                  -->
+                </div>
+            </div>
+        </nav>
+
+            <div class="col-lg-offset-1  col-lg-10  col-sm-12 col-xs-12">
+                <div class="panel panel-default">                        
+                    <div class="panel-heading">
+                        <h4>Consumos de <%= usuario%></h4>
+                        <p>Gasto acumulado: $<%= consumoTotal%></p>
+                    </div>                    
+                    <!--
+                    <h5>Gasto acumulado en el dia: $60</h5>
+                    <h5>Gasto acumulado en el semana : $352</h5>
+                    <h5>Gasto acumulado en el mes: $1050</h5>
+                    <h5>Gasto acumulado en el año: $8892.20</h5>
+                    -->
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="col-lg-5 col-sm-5 col-xs-6">Motivo</th>
+                                <th class="col-lg-1 col-sm-2 col-xs-1">Importe</th>
+                                <th class="col-lg-1 col-sm-2 col-xs-2">Medio de pago</th>
+                                <th class="col-lg-1 col-sm-3 col-xs-3">Fecha</th>                                
+                            </tr>
+                        </thead>
+                        <% if (locals.consumo) { %>
+                        <tbody>
+                            <% consumo.forEach(function(consumo) { %>
+                            <tr>
+                                <td class="col-lg-5 col-sm-5 col-xs-6"><%= consumo.descripcion %></td>
+                                <td class="col-lg-1 col-sm-2 col-xs-1">$<%= consumo.importe %></td>
+                                <td class="col-lg-1 col-sm-2 col-xs-2">-</td>
+                                <td class="col-lg-1 col-sm-3 col-xs-3"><%= escape(consumo.createdAt).substr(4, 17) %></td>                                
+                            </tr>
+                            <% }); %>
+                        </tbody>
+                        <% } %>
+                    </table>          
+                </div>
+                <table id="data-table" class="display" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Motivo</th>
+                            <th>Importe</th>
+                            <th>Medio de pago</th>
+                            <th>Fecha</th>    
+                        </tr>
+                    </thead>
+                </table>
+            </div>        
+        <!-- JQUERY -->
+        <script type="text/javascript" src="..\jquery\dist\jquery.js"></script>        
+        <!-- DATA TABLES -->
+        <script type="text/javascript" src="..\jquery\datatables\media\js\jquery.js"></script>
+        <script type="text/javascript" src="..\datatables.net\js\jquery.dataTables.js"></script>
+        <script type="text/javascript" src="..\jquery\datatables\media\js\dataTables.jqueryui.min.js"></script>
+        <!-- BOOTSTRAP -->
+        <script type="text/javascript" src="..\bootstrap\dist\js\bootstrap.js"></script>
+        <!-- SOCKET -->
+        <script type="text/javascript" src="/js/socket.io/socket.io.js"></script>
+        <script>var socket = io.connect('http://<%= ip %>:<%= port%>', { 'forceNew': true });</script>
+        <!-- CUSTOM -->
+        <script type="text/javascript" src="../js/index.js"></script>
+        <script type="text/javascript">
+            var data = <%= consumos%>;
+            console.log(data);
+        </script>
+    </body>
+</html>

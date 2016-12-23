@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizador de fichas - Registro</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="icon" href="assets/favicon.png">
+  </head>
+
+  <body>
+    <div class="container">        
+        <form class="form-signin" method="post" action="signup">
+            <h2 class="form-signin-heading">Alta de usuario</h2>
+            <% if (locals.succes) { %>
+                <div class="alert alert-info fade in">
+                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                  <p><%= succes %></p>
+                </div>
+            <% } %>
+            <% if (locals.error) { %>
+            <div class="alert alert-danger fade in">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              <p><%= error %></p>
+            </div>
+            <% } %>
+            <label for="usuario"  class="sr-only">Usuario</label>
+            <input type="text" name="usuario" class="form-control" placeholder="Usuario" required autofocus>
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" name="password" class="form-control" placeholder="Contraseña" required>
+            <label for="nombre"  class="sr-only">Nombre</label>
+            <input type="text" name="nombre" class="form-control" placeholder="Nombre" required autofocus>
+            <label for="apellido"  class="sr-only">Apellido</label>
+            <input type="text" name="apellido" class="form-control" placeholder="Apellido" required autofocus>
+            <label for="oficina"  class="sr-only">Oficina</label>
+            <input type="text" name="oficina" class="form-control" placeholder="Oficina" required autofocus>
+            <label for="email"  class="sr-only">Email</label>
+            <input type="email" name="email" class="form-control" placeholder="email" required autofocus>
+            <label class="checkbox-inline">
+              <input name="habilitado" type="checkbox" value="true" class="">
+                Habilitado
+            </label>
+            <label class="checkbox-inline">
+              <input name="admin" type="checkbox" value="true" class="">
+                Administrador
+            </label>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Registrar</button>
+        </form>
+    </div>
+    <script type="text/javascript" src="jquery\dist\jquery.js"></script>
+    <script type="text/javascript" src="bootstrap\dist\js\bootstrap.js"></script>
+    <script type="text/javascript" src="/js/socket.io/socket.io.js"></script>
+  </body>  
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head lang="es">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizador de fichas - Administración</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.css">
+    <link rel="icon" href="assets/favicon.png">
+  </head>
+  <body>
+    <div id="cntPrincipal" class="container">
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div id="header" class="row container">
+            <div class="pull-left"><strong>Administración</strong></div>
+            <div class="pull-right"><p>Andrés Vigna, <a href="/logout" id="btnLogout">Salir</a></p></div>
+          </div>
+          <div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>
+            Consumos
+          </h4>
+        </div>
+          <table class="table table-fixed">
+          <thead>
+            <tr>
+              <th class="col-xs-1">Motivo</th>
+              <th class="col-xs-1">Importe</th>
+              <th class="col-xs-1">Fecha</th>
+              <th class="col-xs-1">M. pago</th>
+            </tr>
+          </thead>
+          <% if (locals.usuarios) { %>
+          <tbody>
+            <% consumos.forEach(function(consumo) { %>
+            <tr>
+              <td class="col-xs-1"><%= consumo.descripcion %></td>
+              <td class="col-xs-1"><%= consumo.importe %></td>
+              <td class="col-xs-1"><%= consumo.createdAt %></td>
+              <td class="col-xs-2">-</td>
+
+            </tr>
+            <% }); %>
+          </tbody>
+          <% } %>
+        </table>
+          
+      </div>
+      </div>
+  </div>
+</div>
+          <div id="footer" class="row">
+          </div>
+        </div>
+      </div>
+
+    <script type="text/javascript" src="jquery\dist\jquery.js"></script>
+    <script type="text/javascript" src="bootstrap\dist\js\bootstrap.js"></script>
+    <script type="text/javascript" src="/js/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="/js/admin.js"></script>
+
+  </body>
+</html>

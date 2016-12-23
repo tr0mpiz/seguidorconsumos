@@ -1,0 +1,16 @@
+select * from imagenes where c_cuenta IN (select c_cuenta from abl where n_circ_cat = 1 and c_seccion_cat = "B" and n_manz_cat = 46 and d_lmanz_cat IS NULL and n_parc_cat = 16 and d_lparc_cat IS NULL)
+
+
+
+select disco, imagen from imagenes where c_cuenta IN (select c_cuenta from abl 
+where n_circ_cat = 3 
+and c_seccion_cat = 'C' 
+and n_fraccion_cat IS NULL 
+and n_parc_cat = 10 
+and d_lparc_cat ='A'
+and d_fraccion_cat IS NULL 
+and n_manz_cat = 30 
+and d_lmanz_cat IS NULL
+and n_ufun_cat = 1
+and d_lufun_cat IS NULL)
+

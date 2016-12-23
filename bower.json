@@ -1,0 +1,21 @@
+{
+  "name": "visualizador",
+  "description": "visualizador de fichas digitales",
+  "main": "main.js",
+  "authors": [
+    "Andres Vigna"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.1.1"
+  }
+}

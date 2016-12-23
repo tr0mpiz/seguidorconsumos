@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head lang="es">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Nuevo consumo</title>
+        <link rel="stylesheet" href="/css/normalize.css">        
+        <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.css">        
+        <link rel="stylesheet" href="/css/index.css">
+        <link rel="stylesheet" href="/css/common.css">
+        <link rel="icon" href="assets/favicon.png">
+    </head>
+    <body>
+        <nav class="col-lg-offset-1 col-lg-10 navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">$<-Tracker</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li class=""><a href="/consumo/consumos">Inicio</a></li>                
+                        <li><a href="/consumo">Nuevo consumo</a></li>
+                        <li><a href="/consumo/estadisticas">Estadisticas</a></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Sesion <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/consumo/api/getConsumos">Descargar consumos</a></li>
+                                <li><a href="#">Configuracion</a></li>
+                                <li><a href="/logout">Salir</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!--
+                    <ul class="nav navbar-nav navbar-right">
+                      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    </ul>
+                  -->
+                </div>
+            </div>
+        </nav>
+        <div class="row">
+            <div class="col-lg-offset-1 col-xs-offset-1  col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                <form method="post" ir="consumoForm" action="/consumo/nuevoConsumo">
+                    <div class="form-group">
+                    <h3>Nuevo consumo</h3>
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcion">Descripcion:</label>
+                        <input name="descripcion" class="form-control" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha">Fecha:</label>
+                        <input name="fecha" type="datetime-local" id="" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="medioPago">Medio de pago:</label>
+                        <select name="medioPago" class="form-control">
+                            <option>Efectivo</option>
+                            <option>Tarjeta de debito</option>
+                            <option>Tarjeta de credito</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="importe">Importe:</label>
+                        <input name="importe" type="number" min="0" step="any" id="" class="form-control" required/>
+                    </div>
+                    <div class="form-group"> 
+                        <button type="submit" class="btn btn-default  col-lg-12 col-sm-12 col-xs-12">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="jquery\dist\jquery.js"></script>
+        <script type="text/javascript" src="bootstrap\dist\js\bootstrap.js"></script>
+        <script type="text/javascript" src="/js/socket.io/socket.io.js"></script>
+        <script>var socket = io.connect('http://<%= ip %>:<%= port%>', { 'forceNew': true });</script>
+        <script type="text/javascript" src="/js/index.js"></script>
+    </body>
+</html>
