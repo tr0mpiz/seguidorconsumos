@@ -102,8 +102,10 @@ app.use(checkIfLoggedIn);
 //ROUTES
 
 /*GET*/
-app.use('/', requireUser, consumoApp );
-
+app.use('/app', requireUser, consumoApp );
+app.get('/', function(req, res){
+    res.redirect('/app');
+});
 app.get('/login', function(req, res){
     res.render('login');
 });
