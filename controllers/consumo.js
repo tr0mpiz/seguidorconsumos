@@ -49,7 +49,7 @@ router.post('/nuevoConsumo', function(req, res){
         if(err)
             res.status(404).send('<h4>Hubo un error:</h4> <br>' + err);
         else{
-            res.redirect('/consumo');
+            res.redirect('/consumos');
         }
     });
 });
