@@ -15,23 +15,25 @@ router.get('/consumos', function(req, res){
         if(err){
             res.status(404).send('<h4>Hubo un error:</h4> <br>' + err);
         }else{
-            Consumo.find(function(err, data1){
-                var consumos = {data : []};
-                for(i in data1){
-                    consumos.data.push(data1[i]);
-                }
+            var total = 0;
+                //var consumos = {data : []};                
+                for(i in rows1){                    
+                    console.log("Importe " + i + ": " + rows1[i].importe)
+                    total+= rows1[i].importe;
+                }                
                 Consumo.aggregate([{$group: {_id: "$usuario", total: {$sum:"$importe"}}}],function(err, rows){
+                    /*
                     var total = 0
                     if(rows.length){
                        total =  rows[0].total;
-                    }
+                    }                
+                    */
                     if(err){
                         res.status(404).send('<h4>Hubo un error:</h4> <br>' + err);
                     }else{
-                        res.render('consumos', { pagina: 'inicio', usuario: req.session.username, consumos: consumos, consumoTotal: total, consumo: rows1, ip: config.server.ip, port: config.server.port });
+                        res.render('consumos', { pagina: 'inicio', usuario: req.session.username, consumoTotal: total, consumo: rows1, ip: config.server.ip, port: config.server.port });
                     }
                 });
-            });
         }
     });
 });
