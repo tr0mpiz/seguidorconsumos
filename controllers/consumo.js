@@ -6,11 +6,11 @@ var Consumo = require('../models/consumo.js');
 router.get('/', function(req, res){
     res.redirect('/app/consumos');
 });
-router.get('/app/consumo', function(req, res){
+router.get('/consumo', function(req, res){
     res.render('consumo', { active: 'consumo', usuario: req.session.username, ip: config.server.ip, port: config.server.port });
 });
 
-router.get('/app/consumos', function(req, res){
+router.get('/consumos', function(req, res){
     Consumo.find({usuario: req.session.username}, function(err,rows1){
         if(err){
             res.status(404).send('<h4>Hubo un error:</h4> <br>' + err);
@@ -36,7 +36,7 @@ router.get('/app/consumos', function(req, res){
     });
 });
 
-router.get('/app/estadisticas', function(req, res){
+router.get('/estadisticas', function(req, res){
     Consumo.find({usuario: req.session.username}, function(err,rows){
         if(err){
             res.status(404).send('<h4>Hubo un error:</h4> <br>' + err);
@@ -46,7 +46,7 @@ router.get('/app/estadisticas', function(req, res){
     });
 });
 
-router.post('/app/nuevoConsumo', function(req, res){
+router.post('/nuevoConsumo', function(req, res){
     var consumo = new Consumo({ usuario: req.session.username, importe: req.body.importe, descripcion: req.body.descripcion });
     consumo.save(function(err, data){
         if(err)
@@ -57,7 +57,7 @@ router.post('/app/nuevoConsumo', function(req, res){
     });
 });
 
-router.get('/app/api/getConsumos', function(req, res){
+router.get('/api/getConsumos', function(req, res){
     
     Consumo.find({usuario: req.session.username}, function(err,rows){
         if(err){
