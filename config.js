@@ -11,12 +11,12 @@ config.socket = {};
 config.imagenes = {};
 config.imagenes.planchetas = {};
 /*SERVER*/
-config.server.ip = argv.ip || ip.address();
-config.server.port = argv.port || 3000;
-config.server.pid = process.pid;
+config.server.ip = process.env.IP || ip.address();
+config.server.port = process.env.PORT || 3000;
+config.server.pid = process.pid || "desconocido";
 /*SOCKET*/
 config.socket.ip = argv.socketIp || ip.address;
-config.socket.port = argv.socketPort || (argv.port || 3000);
+config.socket.port = argv.socketPort || (process.env.PORT || 3000);
 /*DB MYSQL*/
 config.db.mysql.host = argv.mysqlIp || 'localhost';
 config.db.mysql.port = argv.mysqlPort || '3006';
