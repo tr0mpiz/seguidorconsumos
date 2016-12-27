@@ -30,7 +30,7 @@ var consumoApp = require('./controllers/consumo.js');
 /*CONFIG*/
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname + '/views'));
-app.set('port', process.env.port || config.server.port)
+app.set('port', process.env.PORT)
 
 /*MIDDLEWARE*/
 /*
@@ -49,8 +49,7 @@ app.use( expressSession({
     url: mongoUrl
   })
 }));
-/*RUTAS*/
-app.use('/app', consumoApp );
+
 //app.use('/api', someRoute);
 function requireUser(req, res, next){
   if (!req.user) {
@@ -101,6 +100,7 @@ function checkIfLoggedIn(req, res, next){
 app.use(checkIfLoggedIn);
 
 //ROUTES
+app.use('/app', requireUser, consumoApp );
 /*GET*/
 app.get('/', requireUser, function(req, res){
     console.log('Nueva acceso desde ', req.connection.remoteAddress);
@@ -242,9 +242,9 @@ io.on('connection', function(socket){
 });
 
 mongo.connect(mongoUrl, function(){
-    console.log('Conectado a MongoDB: ' + mongoUrl);
-    http.listen(config.server.port, function(){
-    console.log('Server running on %s:%d | PID %d', config.server.ip, config.server.port, config.server.pid);
+    //console.log('Conectado a MongoDB: ' + mongoUrl);
+    http.listen(process.env.PORT, function(){
+    //console.log('Server running on %s:%d | PID %d', config.server.ip, config.server.port, config.server.pid);
     });
     
 });
