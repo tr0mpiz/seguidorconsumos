@@ -4,6 +4,9 @@ var config  = require('../config.js');
 var Consumo = require('../models/consumo.js');
 
 router.get('/', function(req, res){
+    res.redirect('/consumos');
+});
+router.get('/consumo', function(req, res){
     res.render('consumo', { active: 'consumo', usuario: req.session.username, ip: config.server.ip, port: config.server.port });
 });
 
