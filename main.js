@@ -15,7 +15,7 @@ var bunyan = require('bunyan');
 var log = bunyan.createLogger({name: 'myapp'});
 
  /*DB & SESSION*/
-var mongoUrl        = 'mongodb://localhost:27017/consumos';
+var mongoUrl        = 'mongodb://dev:1234@ds149567.mlab.com:49567/seguidorconsumos';
 var expressSession  = require('express-session');
 var MongoStore      = require('connect-mongo')(expressSession);
 var mongo           = require('./mongo');
