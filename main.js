@@ -100,12 +100,9 @@ function checkIfLoggedIn(req, res, next){
 app.use(checkIfLoggedIn);
 
 //ROUTES
-app.use('/app', requireUser, consumoApp );
+
 /*GET*/
-app.get('/', requireUser, function(req, res){
-    console.log('Nueva acceso desde ', req.connection.remoteAddress);
-    res.redirect('/app/consumos');
-});
+app.use('/', requireUser, consumoApp );
 
 app.get('/login', function(req, res){
     res.render('login');
